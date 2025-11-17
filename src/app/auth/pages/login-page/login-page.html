@@ -1,2 +1,15 @@
-<p>login-page works!</p>
-<p-button label="check" (onClick)="login()" />
+<p-card class="sm:p-4">
+  <div class="flex flex-col md:flex-row gap-8 items-center">
+    <div class="w-72">
+      <h1 class="text-5xl font-bold text-emerald-600 mb-4">InnovaTube</h1>
+      <p>
+        Exercise requested by the innovation department of Grupo Castores.
+        InnovaTube is an web app where you can search YouTube videos and save
+        them as favorites.
+      </p>
+    </div>
+    <div class="order-first md:order-last">
+      <auth-login-form />
+    </div>
+  </div>
+</p-card>

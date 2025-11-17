@@ -1,19 +1,15 @@
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { ButtonModule } from 'primeng/button';
+import { CardModule } from 'primeng/card';
 
-import { AuthService } from '../../services/auth.service';
+import { LoginForm } from '../../components/login-form/login-form';
+import { PanelModule } from 'primeng/panel';
 
 @Component({
   selector: 'auth-login-page',
-  imports: [ButtonModule],
+  imports: [ButtonModule, CardModule, LoginForm, PanelModule],
   templateUrl: './login-page.html',
   styleUrl: './login-page.css',
 })
-export class LoginPage {
-  private authService = inject(AuthService);
-
-  login() {
-    this.authService.login('jiji');
-  }
-}
+export class LoginPage {}

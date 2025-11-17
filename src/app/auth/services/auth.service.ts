@@ -1,25 +1,48 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+
+import { LoginRequest, User } from '../types/auth.types';
+import { HttpClient } from '@angular/common/http';
+import { ApiResponse } from '../../core/types/response.types';
+import { Observable, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
+  private readonly API_URL = 'http://localhost:3000/api/v1/auth';
   private accessToken = 'auth_token';
+  private currentUser: User | null = null;
 
-  constructor(private router: Router) {}
+  private http = inject(HttpClient);
+  private router = inject(Router);
 
-  login(token: string): void {
-    localStorage.setItem(this.accessToken, token);
-    this.router.navigate(['/videos']);
+  login(credentials: LoginRequest): Observable<ApiResponse<User>> {
+    return this.http
+      .post<ApiResponse<User>>(`${this.API_URL}/login`, credentials)
+      .pipe(
+        tap((response) => {
+          localStorage.setItem(this.accessToken, response.data.token);
+          this.currentUser = response.data;
+        })
+      );
   }
 
   logout(): void {
     localStorage.removeItem(this.accessToken);
+    localStorage.removeItem('user');
     this.router.navigate(['/login']);
   }
 
   isLoggedIn(): boolean {
     return !!localStorage.getItem(this.accessToken);
+  }
+
+  getToken(): string | null {
+    return localStorage.getItem(this.accessToken);
+  }
+
+  getCurrentUser(): User | null {
+    return this.currentUser;
   }
 }

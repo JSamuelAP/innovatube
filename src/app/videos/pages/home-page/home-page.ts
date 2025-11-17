@@ -12,6 +12,7 @@ import { AuthService } from '../../../auth/services/auth.service';
 })
 export class HomePage {
   private authService = inject(AuthService);
+  protected id = this.authService.getCurrentUser()?.id;
 
   logout() {
     this.authService.logout();

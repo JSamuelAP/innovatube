@@ -3,12 +3,13 @@ import { inject, Injectable } from '@angular/core';
 import { ApiResponse } from '../../core/types/response.types';
 import { Observable } from 'rxjs';
 import { Favorite, Video } from '../types/video.types';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class VideoService {
-  private readonly API_URL = 'http://localhost:3000/api/v1/videos';
+  private readonly API_URL = environment.videosApiUrl;
 
   private http = inject(HttpClient);
 

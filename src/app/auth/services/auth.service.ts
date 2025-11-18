@@ -2,6 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { LoginRequest, SignupRequest, User } from '../types/auth.types';
+import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { ApiResponse } from '../../core/types/response.types';
 import { Observable, tap } from 'rxjs';
@@ -10,7 +11,7 @@ import { Observable, tap } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthService {
-  private readonly API_URL = 'http://localhost:3000/api/v1/auth';
+  private readonly API_URL = environment.authApiUrl;
   private accessToken = 'auth_token';
 
   private http = inject(HttpClient);

@@ -1,0 +1,29 @@
+<a
+  [href]="youtubeUrl()"
+  target="_blank"
+  rel="noopener noreferrer"
+  class="block no-underline"
+>
+  <p-card [style]="{ overflow: 'hidden' }">
+    <ng-template #header>
+      <div class="header-wrapper">
+        <img
+          [src]="video().thumbnailUrl"
+          [alt]="video().title"
+          class="w-full h-full object-cover"
+        />
+        <button
+          pButton
+          type="button"
+          class="favorite-btn p-button-rounded p-button-text"
+          (click)="toggleFavorite($event)"
+          [icon]="favorited() ? 'pi pi-star-fill' : 'pi pi-star'"
+          [style.color]="favorited() ? '#f6e05e' : '#ffffff'"
+        ></button>
+      </div>
+    </ng-template>
+    <ng-template #title>
+      {{ video().title }}
+    </ng-template>
+  </p-card>
+</a>

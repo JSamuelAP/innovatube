@@ -1,0 +1,12 @@
+<div class="flex gap-4">
+  <input
+    type="text"
+    #txtSearch
+    pInputText
+    [placeholder]="placeholder()"
+    autofocus
+    fluid
+    (keyup.enter)="value.emit(txtSearch.value)"
+  />
+  <p-button icon="pi pi-search" (onClick)="value.emit(txtSearch.value)" />
+</div>

@@ -1,0 +1,12 @@
+/* Positioning for header and favorite button */
+.header-wrapper {
+	position: relative;
+}
+
+.favorite-btn {
+	position: absolute;
+	top: 0.5rem;
+	right: 0.5rem;
+	z-index: 10;
+}
+

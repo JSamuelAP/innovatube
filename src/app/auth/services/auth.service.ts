@@ -12,7 +12,6 @@ import { Observable, tap } from 'rxjs';
 export class AuthService {
   private readonly API_URL = 'http://localhost:3000/api/v1/auth';
   private accessToken = 'auth_token';
-  private currentUser: User | null = null;
 
   private http = inject(HttpClient);
   private router = inject(Router);
@@ -23,7 +22,7 @@ export class AuthService {
       .pipe(
         tap((response) => {
           localStorage.setItem(this.accessToken, response.data.token);
-          this.currentUser = response.data;
+          localStorage.setItem('current-user', JSON.stringify(response.data));
         })
       );
   }
@@ -47,6 +46,12 @@ export class AuthService {
   }
 
   getCurrentUser(): User | null {
-    return this.currentUser;
+    const raw = localStorage.getItem('current-user');
+    if (!raw) return null;
+    try {
+      return JSON.parse(raw) as User;
+    } catch (e) {
+      return null;
+    }
   }
 }

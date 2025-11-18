@@ -1,0 +1,21 @@
+<p-menubar [model]="items">
+  <ng-template #start>
+    <span class="text-2xl text-emerald-600 font-bold">
+      <i class="pi pi-video" style="font-size: 1.5rem"></i>
+      InnovaTube
+    </span>
+  </ng-template>
+  <ng-template #end>
+    <span class="mr-4">
+      <i class="pi pi-user"></i>
+      {{ getUserFullName() }}
+    </span>
+    <p-button
+      label="Logout"
+      (onClick)="logout()"
+      icon="pi pi-sign-out"
+      iconPos="right"
+      severity="secondary"
+    />
+  </ng-template>
+</p-menubar>

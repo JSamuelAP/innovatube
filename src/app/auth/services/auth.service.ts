@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { LoginRequest, User } from '../types/auth.types';
+import { LoginRequest, SignupRequest, User } from '../types/auth.types';
 import { HttpClient } from '@angular/common/http';
 import { ApiResponse } from '../../core/types/response.types';
 import { Observable, tap } from 'rxjs';
@@ -32,6 +32,10 @@ export class AuthService {
     localStorage.removeItem(this.accessToken);
     localStorage.removeItem('user');
     this.router.navigate(['/login']);
+  }
+
+  register(user: SignupRequest): Observable<ApiResponse<User>> {
+    return this.http.post<ApiResponse<User>>(`${this.API_URL}/signup`, user);
   }
 
   isLoggedIn(): boolean {

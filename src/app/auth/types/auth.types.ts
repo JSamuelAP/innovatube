@@ -11,3 +11,5 @@ export type User = {
   email: string;
   token: string;
 };
+
+export type SignupRequest = Omit<User, 'id' | 'token'> & { password: string };

@@ -37,8 +37,14 @@
       </p-message>
       }
     </div>
-    <button pButton type="submit" [loading]="isLoading">
+    <button pButton type="submit" [loading]="isLoading()">
       <span pButtonLabel>Login</span>
     </button>
+    <span>
+      Don't have an account?
+      <a routerLink="/register" class="text-emerald-600 font-semibold">
+        Create one </a
+      >.
+    </span>
   </form>
 </p-panel>

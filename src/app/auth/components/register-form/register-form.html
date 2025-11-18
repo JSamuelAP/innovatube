@@ -1,0 +1,112 @@
+<p-panel>
+  <h2 class="text-4xl font-bold text-center text-emerald-600 mb-8">Sign up</h2>
+  <form
+    [formGroup]="form"
+    (ngSubmit)="onSubmit()"
+    class="flex flex-col gap-4 w-full sm:w-72"
+  >
+    <div class="flex flex-col gap1">
+      <input
+        pInputText
+        type="text"
+        id="name"
+        formControlName="name"
+        [invalid]="isInvalid('name')"
+        pSize="large"
+        placeholder="Name"
+      />
+      @if (isInvalid('name')) {
+      <p-message severity="error" size="small" variant="simple">
+        Name is required.
+      </p-message>
+      }
+    </div>
+    <div class="flex flex-col gap1">
+      <input
+        pInputText
+        type="text"
+        id="lastName"
+        formControlName="lastName"
+        [invalid]="isInvalid('lastName')"
+        pSize="large"
+        placeholder="Last name"
+      />
+      @if (isInvalid('lastName')) {
+      <p-message severity="error" size="small" variant="simple">
+        Last name is required.
+      </p-message>
+      }
+    </div>
+    <div class="flex flex-col gap1">
+      <input
+        pInputText
+        type="text"
+        id="username"
+        formControlName="username"
+        [invalid]="isInvalid('username')"
+        pSize="large"
+        placeholder="Username"
+      />
+      @if (isInvalid('username')) {
+      <p-message severity="error" size="small" variant="simple">
+        Username is required.
+      </p-message>
+      }
+    </div>
+    <div class="flex flex-col gap1">
+      <input
+        pInputText
+        type="email"
+        id="email"
+        formControlName="email"
+        [invalid]="isInvalid('email')"
+        pSize="large"
+        placeholder="Email"
+      />
+      @if (isInvalid('email')) {
+      <p-message severity="error" size="small" variant="simple">
+        Invalid email.
+      </p-message>
+      }
+    </div>
+    <div class="flex flex-col gap1">
+      <input
+        pInputText
+        type="password"
+        id="password"
+        formControlName="password"
+        [invalid]="isInvalid('password')"
+        pSize="large"
+        placeholder="Password"
+      />
+      @if (isInvalid('password')) {
+      <p-message severity="error" size="small" variant="simple">
+        {{ passwordErrorMessage() }}
+      </p-message>
+      }
+    </div>
+    <div class="flex flex-col gap1">
+      <input
+        pInputText
+        type="password"
+        id="confirmPassword"
+        formControlName="confirmPassword"
+        [invalid]="isInvalid('confirmPassword')"
+        pSize="large"
+        placeholder="Confirm password"
+      />
+      @if(isInvalid('confirmPassword')){
+      <p-message severity="error" size="small" variant="simple">
+        {{ confirmPasswordErrorMessage() }}
+      </p-message>
+      }
+    </div>
+    <button pButton type="submit" [loading]="isLoading()">
+      <span pButtonLabel>Create account</span>
+    </button>
+    <span>
+      Already have an account?
+      <a routerLink="/login" class="text-emerald-600 font-semibold"> Login</a>.
+    </span>
+  </form>
+</p-panel>

@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import {
   FormBuilder,
   ReactiveFormsModule,
@@ -7,7 +7,7 @@ import {
   ValidationErrors,
   ValidatorFn,
 } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
@@ -30,6 +30,7 @@ import { User } from '../../types/auth.types';
     MessageModule,
     PanelModule,
     ReactiveFormsModule,
+    RouterLink,
   ],
   templateUrl: './login-form.html',
   styleUrl: './login-form.css',
@@ -41,7 +42,7 @@ export class LoginForm {
   private messageService = inject(MessageService);
 
   private formSubmitted = false;
-  public isLoading = false;
+  protected isLoading = signal(false);
 
   private static identifierValidator: ValidatorFn = (
     control: AbstractControl
@@ -65,7 +66,7 @@ export class LoginForm {
 
   onSubmit() {
     this.formSubmitted = true;
-    this.isLoading = true;
+    this.isLoading.set(true);
     if (this.form.valid) {
       this.formSubmitted = false;
 
@@ -77,6 +78,8 @@ export class LoginForm {
         next: (res) => this.handleSuccess(res),
         error: (err) => this.handleError(err),
       });
+    } else {
+      this.isLoading.set(false);
     }
   }
 
@@ -92,7 +95,7 @@ export class LoginForm {
   }
 
   handleError(error: HttpErrorResponse) {
-    this.isLoading = false;
+    this.isLoading.set(false);
     this.messageService.add({
       severity: 'error',
       summary: 'Access error',

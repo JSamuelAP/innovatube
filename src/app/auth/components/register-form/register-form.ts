@@ -16,11 +16,13 @@ import { InputTextModule } from 'primeng/inputtext';
 import { MessageModule } from 'primeng/message';
 import { MessageService } from 'primeng/api';
 import { PanelModule } from 'primeng/panel';
+import { RecaptchaModule } from 'ng-recaptcha-2';
 
 import { AuthService } from '../../services/auth.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ApiResponse } from '../../../core/types/response.types';
 import { User } from '../../types/auth.types';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'auth-register-form',
@@ -31,6 +33,7 @@ import { User } from '../../types/auth.types';
     MessageModule,
     PanelModule,
     ReactiveFormsModule,
+    RecaptchaModule,
     RouterLink,
   ],
   templateUrl: './register-form.html',
@@ -43,6 +46,8 @@ export class RegisterForm {
   private messageService = inject(MessageService);
 
   private formSubmitted = false;
+  private captchaToken = '';
+  protected siteKey = environment.recaptchaSiteKey;
   public isLoading = signal(false);
 
   private static strongPasswordValidator: ValidatorFn = (
@@ -95,7 +100,7 @@ export class RegisterForm {
   onSubmit() {
     this.formSubmitted = true;
     this.isLoading.set(true);
-    if (this.form.valid) {
+    if (this.form.valid && this.captchaToken) {
       this.formSubmitted = false;
       const user = {
         name: this.form.value.name!,
@@ -103,6 +108,7 @@ export class RegisterForm {
         username: this.form.value.username!,
         email: this.form.value.email!,
         password: this.form.value.password!,
+        recaptchaToken: this.captchaToken,
       };
       this.authService.register(user).subscribe({
         next: (res) => this.handleSuccess(res),
@@ -110,6 +116,14 @@ export class RegisterForm {
       });
     } else {
       this.isLoading.set(false);
+      if (!this.captchaToken) {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Registration error',
+          detail: 'Please verify that you are not a robot',
+          life: 3000,
+        });
+      }
     }
   }
 
@@ -169,5 +183,9 @@ export class RegisterForm {
       return 'Passwords do not match.';
     }
     return null;
+  }
+
+  resolvedCaptcha(token: string | null) {
+    this.captchaToken = token || '';
   }
 }

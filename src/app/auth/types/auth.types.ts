@@ -12,4 +12,7 @@ export type User = {
   token: string;
 };
 
-export type SignupRequest = Omit<User, 'id' | 'token'> & { password: string };
+export type SignupRequest = Omit<User, 'id' | 'token'> & {
+  password: string;
+  recaptchaToken: string;
+};

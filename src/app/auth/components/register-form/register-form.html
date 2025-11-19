@@ -101,6 +101,7 @@
       </p-message>
       }
     </div>
+    <re-captcha (resolved)="resolvedCaptcha($event)" [siteKey]="siteKey" />
     <button pButton type="submit" [loading]="isLoading()">
       <span pButtonLabel>Create account</span>
     </button>

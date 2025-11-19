@@ -1,59 +1,24 @@
-# Innovatube
+# InnovaTube API
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.1.1.
+## Arquitectura
+<img width="1654" height="1243" alt="imagen" src="https://github.com/user-attachments/assets/f85512cc-df66-4b5a-a6ab-9e076d4c7bb9" />
 
-## Development server
+* Frontend
+  * Angular con primeng y tailwindcss
+  * Netlify como hosting
+  * Protección reCAPTCHA V2
+* Backend
+  * Nodejs con TypeScript
+  * Express  para crear la API REST
+  * Render como nube para ejecutar la API
+  * Supabase y PostgreSQL como base de datos relacional
+  * API de YouTube
+  * Validación reCAPTCHA
 
-To start a local development server, run:
+## Base de datos
+Se utilizo supabase para crear las tablas _user_ y _user_favorite_, la tabla _video_ no existe porque su información se consulta de la API de YouTube, pero se incluye en el diagrama para visualizar los campos consultados:
+<img width="2688" height="1288" alt="imagen" src="https://github.com/user-attachments/assets/14b23903-1379-4e2c-93d7-8a5167822594" />
 
-```bash
-ng serve
-```
+## Casos de uso
+<img width="3188" height="2284" alt="imagen" src="https://github.com/user-attachments/assets/94f58ffb-e721-4a50-8151-d66fec2d7d63" />
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
